@@ -45,6 +45,12 @@ void calcBhaskara(bhaskaraData *bhaskara)
     float delta;
     float x;
     delta = pow(bhaskara->b, 2) - (4 * bhaskara->a * bhaskara->c);
+    if(bhaskara->a == 0){
+        bhaskara->x1 = NAN;
+        bhaskara->x2 = NAN;
+        return;
+    }
+
     if (delta < 0)
     {
         bhaskara->x1 = NAN;
