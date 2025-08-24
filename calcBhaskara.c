@@ -93,10 +93,6 @@ void imprimirValores(bhaskaraData *bhaskara)
 int main()
 {
     bhaskaraData bhaskara;
-    
     lerValores(&bhaskara);
-    
-    
-
     return 0;
 }
