@@ -6,6 +6,7 @@ typedef struct bhaskaraData
     float a;
     float b;
     float c;
+    float delta;
     float x1;
     float x2;
 } bhaskaraData;
@@ -42,21 +43,21 @@ void lerValores(bhaskaraData *bhaskara)
 
 void calcBhaskara(bhaskaraData *bhaskara)
 {
-    float delta;
     float x;
-    delta = pow(bhaskara->b, 2) - (4 * bhaskara->a * bhaskara->c);
+    bhaskara->delta = pow(bhaskara->b, 2) - (4 * bhaskara->a * bhaskara->c);
     if(bhaskara->a == 0){
         bhaskara->x1 = NAN;
         bhaskara->x2 = NAN;
+        printf("\n!a igual a 0 não define uma equação quadrática!\n");
         return;
     }
 
-    if (delta < 0)
+    if (bhaskara->delta < 0)
     {
         bhaskara->x1 = NAN;
         bhaskara->x2 = NAN;
     }
-    else if (delta == 0)
+    else if (bhaskara->delta == 0)
     {
         x = -bhaskara->b / (2 * bhaskara->a);
         bhaskara->x1 = x;
@@ -64,15 +65,15 @@ void calcBhaskara(bhaskaraData *bhaskara)
     }
     else
     {
-        bhaskara->x1 = (-bhaskara->b + sqrt(delta)) / (2 * bhaskara->a);
-        bhaskara->x2 = (-bhaskara->b - sqrt(delta)) / (2 * bhaskara->a);
+        bhaskara->x1 = (-bhaskara->b + sqrt(bhaskara->delta)) / (2 * bhaskara->a);
+        bhaskara->x2 = (-bhaskara->b - sqrt(bhaskara->delta)) / (2 * bhaskara->a);
     }
 }
 
 void imprimirValores(bhaskaraData *bhaskara)
 {
     calcBhaskara(bhaskara);
-    printf("---------------------------------");
+    printf("\n---------------------------------");
     printf("\n===== ENTRADA =====\n");
     printf("Valor de a: %.2f\n", bhaskara->a);
     printf("Valor de b: %.2f\n", bhaskara->b);
@@ -84,6 +85,7 @@ void imprimirValores(bhaskaraData *bhaskara)
     else
     {
         printf("\n===== RESULTADO =====\n");
+        printf("Valor de Delta: %.2f\n", bhaskara->delta);
         printf("Valor de x1: %.2f\n", bhaskara->x1);
         printf("Valor de x2: %.2f\n", bhaskara->x2);
     }
@@ -92,7 +94,7 @@ void imprimirValores(bhaskaraData *bhaskara)
 
 int main()
 {
-    bhaskaraData bhaskara;
+    bhaskaraData bhaskara = {0, 0, 0, 0, 0, 0};
     lerValores(&bhaskara);
     return 0;
 }
